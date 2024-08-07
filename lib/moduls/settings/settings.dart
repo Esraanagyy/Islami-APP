@@ -6,14 +6,6 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: Text(
-      "Settings view",
-      style: TextStyle(
-        fontSize: 50,
-        fontWeight: FontWeight.bold,
-        fontFamily: "ElMessiri",
-      ),
-    ));
+    return;
   }
 }
