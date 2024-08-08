@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:islami_app/moduls/hadith/hadith_details.dart';
+import 'package:islami_app/modules/hadith/hadith_details.dart';
 
 class HadithView extends StatefulWidget {
   const HadithView({super.key});

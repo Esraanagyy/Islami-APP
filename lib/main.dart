@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:islami_app/core/theme/app_theme_data.dart';
-import 'package:islami_app/moduls/hadith/hadith_details.dart';
-import 'package:islami_app/moduls/hadith/hadith_view.dart';
-import 'package:islami_app/moduls/quran/quran_details_view.dart';
-import 'package:islami_app/moduls/splash/splash_view.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islami_app/core/settings_provider.dart';
+import 'package:islami_app/core/theme/app_theme_data.dart';
+import 'package:islami_app/modules/hadith/hadith_details.dart';
+import 'package:islami_app/modules/quran/quran_details_view.dart';
+import 'package:islami_app/modules/splash/splash_view.dart';
+import 'package:provider/provider.dart';
+
 import 'layout/layout_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => SettingsProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,12 +20,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<SettingsProvider>(context);
     return MaterialApp(
       title: 'Islami App',
       theme: ApplicationThemeManager.lightTheme,
+      themeMode: provider.currentMode,
+      darkTheme: ApplicationThemeManager.darkTheme,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-      locale: const Locale("en"),
+      locale: Locale(provider.currentLanguage),
       supportedLocales: AppLocalizations.supportedLocales,
       initialRoute: SplashView.routeName,
       routes: {

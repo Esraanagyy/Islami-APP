@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:islami_app/moduls/quran/quran_view.dart';
+import 'package:islami_app/core/settings_provider.dart';
+import 'package:islami_app/modules/quran/quran_view.dart';
+import 'package:provider/provider.dart';
 
 class QuranDetails extends StatefulWidget {
   static const String routeName = "QuranDetails";
@@ -17,13 +18,14 @@ class _QuranDetailsState extends State<QuranDetails> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var data = ModalRoute.of(context)?.settings.arguments as SuraData;
+    var provider = Provider.of<SettingsProvider>(context);
 
     loadQuranData(data.suraNumber);
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/background.png"),
+          image: AssetImage(provider.getBackgroundImage()),
           fit: BoxFit.cover,
         ),
       ),
@@ -41,7 +43,9 @@ class _QuranDetailsState extends State<QuranDetails> {
           padding:
               const EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 80),
           decoration: BoxDecoration(
-            color: const Color(0xfff8f8f8).withOpacity(0.8),
+            color: provider.isDark()
+                ? const Color(0xff141A2E).withOpacity(0.8)
+                : const Color(0xfff8f8f8).withOpacity(0.8),
             borderRadius: BorderRadius.circular(30),
           ),
           child: Column(
@@ -51,10 +55,19 @@ class _QuranDetailsState extends State<QuranDetails> {
                 children: [
                   Text(
                     " سورة ${data.suraName}",
-                    style: theme.textTheme.bodyMedium,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: provider.isDark()
+                          ? theme.primaryColorDark
+                          : Colors.black,
+                    ),
                   ),
                   const SizedBox(width: 15),
-                  const Icon(Icons.play_circle_fill_rounded),
+                  Icon(
+                    Icons.play_circle_fill_rounded,
+                    color: provider.isDark()
+                        ? theme.primaryColorDark
+                        : Colors.black,
+                  )
                 ],
               ),
               const Divider(),
@@ -65,8 +78,11 @@ class _QuranDetailsState extends State<QuranDetails> {
                     child: Text(
                       " {${index + 1}} ${versesList[index]}",
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.bodySmall,
-                    ),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: provider.isDark()
+                              ? theme.primaryColorDark
+                              : Colors.black,
+                        )),
                   ),
                   itemCount: versesList.length,
                 ),

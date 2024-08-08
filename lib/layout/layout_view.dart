@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:islami_app/core/theme/app_theme_data.dart';
-import 'package:islami_app/moduls/hadith/hadith_view.dart';
-import 'package:islami_app/moduls/quran/quran_view.dart';
-import 'package:islami_app/moduls/radio/radio_view.dart';
-import 'package:islami_app/moduls/sebha/sebha_view.dart';
-import 'package:islami_app/moduls/settings/settings.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islami_app/core/settings_provider.dart';
+import 'package:islami_app/modules/hadith/hadith_view.dart';
+import 'package:islami_app/modules/quran/quran_view.dart';
+import 'package:islami_app/modules/radio/radio_view.dart';
+import 'package:islami_app/modules/sebha/sebha_view.dart';
+import 'package:islami_app/modules/settings/settings.dart';
+import 'package:provider/provider.dart';
 
 class LayoutView extends StatefulWidget {
   static String routeName = "layout";
@@ -31,10 +31,13 @@ class _LayoutViewState extends State<LayoutView> {
   @override
   Widget build(BuildContext context) {
     var lang = AppLocalizations.of(context)!;
+    var provider = Provider.of<SettingsProvider>(context);
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           image: DecorationImage(
-        image: AssetImage("assets/images/background.png"),
+        image: AssetImage(
+          provider.getBackgroundImage(),
+        ),
         fit: BoxFit.cover,
       )),
       child: Scaffold(

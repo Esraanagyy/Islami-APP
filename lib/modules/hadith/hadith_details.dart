@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../core/settings_provider.dart';
 import 'hadith_view.dart';
 
 class HadithDetails extends StatelessWidget {
@@ -11,11 +13,12 @@ class HadithDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var data = ModalRoute.of(context)?.settings.arguments as HadithData;
+    var provider = Provider.of<SettingsProvider>(context);
 
     return Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
+            image: AssetImage(provider.getBackgroundImage()),
             fit: BoxFit.cover,
           ),
         ),
@@ -33,13 +36,18 @@ class HadithDetails extends StatelessWidget {
             padding:
                 const EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 80),
             decoration: BoxDecoration(
-              color: const Color(0xfff8f8f8).withOpacity(0.8),
+              color: provider.isDark()
+                  ? const Color(0xff141A2E).withOpacity(0.8)
+                  : const Color(0xfff8f8f8).withOpacity(0.8),
               borderRadius: BorderRadius.circular(30),
             ),
             child: Column(children: [
               Text(
                 data.title,
-                style: theme.textTheme.bodyMedium,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color:
+                      provider.isDark() ? theme.primaryColorDark : Colors.black,
+                ),
               ),
               const Divider(),
               Expanded(
@@ -49,7 +57,11 @@ class HadithDetails extends StatelessWidget {
                     child: Text(
                       data.body,
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.bodySmall,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: provider.isDark()
+                            ? theme.primaryColorDark
+                            : Colors.black,
+                      ),
                     ),
                   ),
                   itemCount: 1,

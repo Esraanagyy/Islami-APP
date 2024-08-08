@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:islami_app/moduls/quran/quran_details_view.dart';
-import 'package:islami_app/moduls/quran/widgets/sura_title_widget.dart';
+import 'package:islami_app/modules/quran/quran_details_view.dart';
+import 'package:islami_app/modules/quran/widgets/sura_title_widget.dart';
 
 class QuranView extends StatefulWidget {
   const QuranView({super.key});

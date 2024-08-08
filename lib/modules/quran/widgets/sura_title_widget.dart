@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:islami_app/moduls/quran/quran_view.dart';
+import 'package:islami_app/modules/quran/quran_view.dart';
 
 class SuraTitle extends StatelessWidget {
   final SuraData data;
